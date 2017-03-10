@@ -18,9 +18,11 @@ using namespace std;
 //global representation
 #include <nav_core/base_global_planner.h>
 
-namespace sbpl_lattice_planner{
+namespace sbpl_lattice_planner
+{
 
-class SBPLLatticePlanner : public nav_core::BaseGlobalPlanner{
+class SBPLLatticePlanner : public nav_core::BaseGlobalPlanner
+{
 public:
   
   /**
@@ -56,7 +58,7 @@ public:
                         const geometry_msgs::PoseStamped& goal, 
                         std::vector<geometry_msgs::PoseStamped>& plan);
 
-  virtual ~SBPLLatticePlanner(){};
+  virtual ~SBPLLatticePlanner(){}
 
 private:
   unsigned char costMapCostToSBPLCost(unsigned char newcost);
@@ -64,37 +66,38 @@ private:
                     const geometry_msgs::PoseStamped& start, 
                     const geometry_msgs::PoseStamped& goal);
 
-  bool initialized_;
+  bool m_initialized;
 
-  SBPLPlanner* planner_;
-  EnvironmentNAVXYTHETALAT* env_;
+  SBPLPlanner* m_planner;
+  EnvironmentNAVXYTHETALAT* m_env;
   
-  std::string planner_type_; /**< sbpl method to use for planning.  choices are ARAPlanner and ADPlanner */
+  std::string m_planner_type; /**< sbpl method to use for planning.  choices are ARAPlanner and ADPlanner */
 
-  double allocated_time_; /**< amount of time allowed for search */
-  double initial_epsilon_; /**< initial epsilon for beginning the anytime search */
+  double m_allocated_time; /**< amount of time allowed for search */
+  double m_initial_epsilon; /**< initial epsilon for beginning the anytime search */
 
-  std::string environment_type_; /** what type of environment in which to plan.  choices are 2D and XYThetaLattice. */ 
-  std::string cost_map_topic_; /** what topic is being used for the costmap topic */
+  std::string m_environment_type; /** what type of environment in which to plan.  choices are 2D and XYThetaLattice. */
+  std::string m_cost_map_topic; /** what topic is being used for the costmap topic */
 
-  bool forward_search_; /** whether to use forward or backward search */
-  std::string primitive_filename_; /** where to find the motion primitives for the current robot */
-  int force_scratch_limit_; /** the number of cells that have to be changed in the costmap to force the planner to plan from scratch even if its an incremental planner */
+  bool m_forward_search; /** whether to use forward or backward search */
+  std::string m_primitive_filename; /** where to find the motion primitives for the current robot */
+  int m_force_scratch_limit; /** the number of cells that have to be changed in the costmap to force the planner to plan from scratch even if its an incremental planner */
 
-  unsigned char lethal_obstacle_;
-  unsigned char inscribed_inflated_obstacle_;
-  unsigned char sbpl_cost_multiplier_;
+  unsigned char m_lethal_obstacle;
+  unsigned char m_inscribed_inflated_obstacle;
+  unsigned char m_sbpl_cost_multiplier;
 
 
-  costmap_2d::Costmap2DROS* costmap_ros_; /**< manages the cost map for us */
+  costmap_2d::Costmap2DROS* m_costmap_ros; /**< manages the cost map for us */
 
-  ros::Publisher plan_pub_;
-  ros::Publisher stats_publisher_;
+  ros::Publisher m_plan_pub;
+  ros::Publisher m_stats_publisher;
   
-  std::vector<geometry_msgs::Point> footprint_;
+  std::vector<geometry_msgs::Point> m_footprint;
 
 };
-};
+
+} //namespace sbpl_lattice_planner
 
 #endif
 
